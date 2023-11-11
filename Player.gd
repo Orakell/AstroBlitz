@@ -2,6 +2,8 @@ extends RigidBody2DViewportWrapped
 
 class_name Player
 
+signal has_died
+
 var rotation_speed = TAU
 var thrust_force = 400
 
@@ -26,6 +28,5 @@ func _physics_process(delta):
 func get_sprite_size():
 	return sprite_size
 
-
 func _on_body_entered(body):
-	queue_free()
+	has_died.emit()

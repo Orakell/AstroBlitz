@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx3b05fywqjsv"]
+
+[ext_resource type="Script" path="res://AsteroidBig.gd" id="1_32kep"]
+[ext_resource type="Texture2D" uid="uid://6obn13n1bujd" path="res://assets/png/meteor_detailedLarge.png" id="2_7oeng"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2x2c"]
+radius = 22.0227
+
+[node name="AsteroidBig" type="RigidBody2D"]
+script = ExtResource("1_32kep")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_7oeng")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_t2x2c")

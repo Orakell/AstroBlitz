@@ -1,15 +1,11 @@
 extends RigidBody2DViewportWrapped
 
+const STARTING_FORCE = 300
+
 @onready var sprite_size = $Sprite2D.get_rect().size
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	apply_impulse(Utils.random_unit_vector2() * randf_range(STARTING_FORCE / 2, STARTING_FORCE * 2))
 
 func get_sprite_size():
 	return sprite_size
