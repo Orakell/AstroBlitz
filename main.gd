@@ -1,5 +1,7 @@
 extends Node
 
+class_name Main
+
 signal score_changed
 signal level_changed
 signal lives_changed
@@ -10,8 +12,9 @@ var player_scene = preload("res://player.tscn")
 var asteroid_scene = preload("res://asteroid_big.tscn")
 @export var asteroid_container : Node2D
 
-var asteroid_spawn_range_min = 100
-var asteroid_spawn_range_max = 300
+var asteroid_spawn_number = 0
+var asteroid_spawn_range_min = 200
+var asteroid_spawn_range_max = 400
 
 var player_node : Node2D
 
@@ -39,20 +42,32 @@ var level:
 @onready var viewport_size = get_viewport().size
 
 func _ready():
+	Messenger.connect("ASTEROID_DESTROYED", _on_asteroid_shot)
 	setup_new_game()
+	
+func _on_asteroid_shot(asteroid):
+	if asteroid.debris_scene:
+		score += 5
+	else:
+		score += 2
+		
+		if asteroid_container.get_child_count() == 1:
+			setup_new_level()
 	
 func setup_new_game():
 	cleanup_game()
 	lives = 3
 	score = 0
 	level = 0
-	setup_new_level(3)
+	asteroid_spawn_number = 0
+	setup_new_level()
 
-func setup_new_level(asteroid_number):
+func setup_new_level():
 	level += 1
 	spawn_player()
+	asteroid_spawn_number += randf_range(1, 2)
 	
-	for i in asteroid_number:
+	for i in asteroid_spawn_number:
 		spawn_asteroid()
 
 func cleanup_game():
@@ -72,7 +87,10 @@ func spawn_player():
 	player_node = player_scene.instantiate()
 	player_node.position = viewport_size / 2.0
 	player_node.has_died.connect(_on_player_death)
-	add_child(player_node)
+	call_deferred("spawn_player_deferred", player_node)
+
+func spawn_player_deferred(node):
+	add_child(node)
 	
 func spawn_asteroid():
 	var asteroid = asteroid_scene.instantiate()

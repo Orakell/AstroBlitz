@@ -30,6 +30,9 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("go_forward"):
 		apply_force(Vector2.UP.rotated(rotation) * thrust_force)
+		
+	if Input.is_action_pressed("slow_down"):
+		apply_force(- Vector2.UP.rotated(rotation) * thrust_force)
 	
 	fire_cooldown_remaining -= delta
 	if fire_cooldown_remaining <= 0 && Input.is_action_pressed("fire"):
@@ -48,7 +51,7 @@ func shoot():
 func get_sprite_size():
 	return sprite_size
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	if is_invincible:
 		return
 		
