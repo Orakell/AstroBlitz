@@ -15,6 +15,8 @@ radius = 22.0227
 
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(297, 196)
+max_contacts_reported = 50
+contact_monitor = true
 script = ExtResource("2_ay7po")
 metadata/_edit_group_ = true
 
@@ -35,3 +37,5 @@ texture = ExtResource("3_slvqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidBig"]
 shape = SubResource("CircleShape2D_t2x2c")
+
+[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
