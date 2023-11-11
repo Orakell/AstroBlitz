@@ -1,14 +1,11 @@
-extends RigidBody2D
+extends RigidBody2DViewportWrapped
 
 class_name Player
 
 var rotation_speed = TAU
 var thrust_force = 400
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
+@onready var sprite_size = $Sprite2D.get_rect().size
 
 # Called every physic frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -27,3 +24,6 @@ func _physics_process(delta):
 		pass
 	
 	pass
+
+func get_sprite_size():
+	return sprite_size

@@ -1,16 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://cje346yqt0if3"]
+[gd_scene load_steps=7 format=3 uid="uid://cje346yqt0if3"]
 
 [ext_resource type="Texture2D" uid="uid://b1rn3bcydp27n" path="res://assets/png/ship_A.png" id="1_2ry32"]
 [ext_resource type="Script" path="res://Player.gd" id="2_ay7po"]
+[ext_resource type="Texture2D" uid="uid://6obn13n1bujd" path="res://assets/png/meteor_detailedLarge.png" id="3_slvqm"]
+[ext_resource type="Script" path="res://AsteroidBig.gd" id="3_tflkt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ahbgw"]
 radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2x2c"]
+radius = 22.0227
 
 [node name="Main" type="Node"]
 
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(297, 196)
 script = ExtResource("2_ay7po")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_2ry32")
@@ -18,3 +24,14 @@ texture = ExtResource("1_2ry32")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_ahbgw")
+
+[node name="AsteroidBig" type="RigidBody2D" parent="."]
+position = Vector2(155, 162)
+script = ExtResource("3_tflkt")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="AsteroidBig"]
+texture = ExtResource("3_slvqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidBig"]
+shape = SubResource("CircleShape2D_t2x2c")
