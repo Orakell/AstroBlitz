@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7br12m2dx4da"]
+
+[ext_resource type="Texture2D" uid="uid://b5x11cnafcnoj" path="res://assets/png/effect_yellow.png" id="1_tixcr"]
+[ext_resource type="Script" path="res://laser.gd" id="1_vq3uk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oh0aq"]
+size = Vector2(3, 10)
+
+[node name="Laser" type="Area2D"]
+script = ExtResource("1_vq3uk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.099, 0.25)
+texture = ExtResource("1_tixcr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_oh0aq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
