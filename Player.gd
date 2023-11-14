@@ -11,16 +11,12 @@ var fire_cooldown = 0.05
 var fire_cooldown_remaining = 0
 const BULLET_SCENE = preload("res://laser.tscn")
 
-var is_invincible : bool = true
-
+@onready var invincibility_component : InvincibilityComponent = $InvincibilityComponent
 @onready var sprite_size = $Sprite2D.get_rect().size
 
 # Called every physic frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	angular_velocity = 0
-	
-	if is_invincible:
-		enable_invincibility_animation()
 	
 	if Input.is_action_pressed("rotate_ccw"):
 		angular_velocity = rotation_speed
@@ -40,7 +36,7 @@ func _physics_process(delta):
 		shoot()
 	
 func shoot():
-	if is_invincible:
+	if invincibility_component.is_invincible():
 		return
 		
 	var laser = BULLET_SCENE.instantiate()
@@ -52,17 +48,7 @@ func get_sprite_size():
 	return sprite_size
 
 func _on_body_entered(_body):
-	if is_invincible:
+	if invincibility_component.is_invincible():
 		return
 		
 	has_died.emit()
-
-func enable_invincibility_animation():
-	$Sprite2D.modulate.a = sin($InvincibilityTimer.time_left * 50.0) / 4.0 + 0.50
-	
-func disable_invincibility_animation():
-	$Sprite2D.modulate.a = 1.0
-
-func _on_invincibility_timer_timeout():
-	is_invincible = false
-	disable_invincibility_animation()

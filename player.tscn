@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bblljgxebl5r8"]
+[gd_scene load_steps=5 format=3 uid="uid://bblljgxebl5r8"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_y8bpn"]
 [ext_resource type="Texture2D" uid="uid://b1rn3bcydp27n" path="res://assets/png/ship_A.png" id="2_cgesp"]
+[ext_resource type="PackedScene" uid="uid://dasiid3d2jbhr" path="res://scenes/invincibility_component.tscn" id="3_fqm8j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ahbgw"]
 radius = 12.0
@@ -23,10 +24,12 @@ shape = SubResource("CircleShape2D_ahbgw")
 [node name="LaserSpawnPoint" type="Node2D" parent="."]
 position = Vector2(0, -11)
 
-[node name="InvincibilityTimer" type="Timer" parent="."]
-wait_time = 1.5
+[node name="InvincibilityComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_fqm8j")]
+sprite = NodePath("../Sprite2D")
+
+[node name="Timer" type="Timer" parent="InvincibilityComponent"]
+wait_time = 3.0
 one_shot = true
 autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
