@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Player.gd" id="1_y8bpn"]
 [ext_resource type="Texture2D" uid="uid://b1rn3bcydp27n" path="res://assets/png/ship_A.png" id="2_cgesp"]
-[ext_resource type="PackedScene" uid="uid://dasiid3d2jbhr" path="res://scenes/invincibility_component.tscn" id="3_fqm8j"]
+[ext_resource type="PackedScene" uid="uid://dasiid3d2jbhr" path="res://scenes/components/invincibility_component.tscn" id="3_fqm8j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ahbgw"]
 radius = 12.0
